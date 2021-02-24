@@ -1,0 +1,82 @@
+services:
+  postgres:
+    image: postgres:13.1-alpine
+    restart: always
+    ports: 
+      - 5432:5432
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./volume/postgres:/var/lib/postgresql/data
+  mysql:
+    image: mysql:8.0.23
+    restart: always
+    ports: 
+      - 3306:3306
+    environment: 
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./volume/mysql:/var/lib/mysql
+    cap_add:
+      - SYS_NICE
+  redis:
+    image: redis:6.2.0-alpine
+    restart: always
+    ports: 
+      - 6379:6379
+    volumes:
+      - ./volume/redis/etc:/usr/local/etc/redis
+      - ./volume/redis/data:/data
+  mongo:
+    image: mongo:4.4.3-bionic
+    restart: always
+    ports: 
+      - 27017:27017
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes: 
+      - ./volume/mongo:/data/db
+  couch:
+    image: couchdb:3.1.1
+    restart: always
+    ports: 
+      - 5984:5984
+    environment: 
+      COUCHDB_USER: root
+      COUCHDB_PASSWORD: password
+      # I found these secret and flags on some Github repo, so I thought I'd use it and it worked.
+      COUCHDB_SECRET: 0ef656e4-afa6-11ea-b3de-0242ac130004
+      ERL_FLAGS: "-setcookie 556d8dd-e921-4e84-8f4c-011a69969724"
+    volumes:
+      - "./volume/couch/data:/opt/couchdb/data"
+      - "./volume/couch/cfg:/opt/couchdb/etc/local.d"
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports: 
+      - 2083:8081
+    depends_on:
+      - mongo
+    environment: 
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      REDIS_PORT: 6379
+      REDIS_HOST: redis
+    ports:
+      - 2084:8081
+    depends_on:
+      - redis
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports: 
+      - 2086:8081
+    depends_on:
+      - mysql
+      - postgres
