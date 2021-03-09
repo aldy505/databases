@@ -40,7 +40,7 @@ Yes.
 
 ## Wait, my CouchDB got an error?
 
-Yeah.. about that.. You'll need to run `couch.prod.sh` first.
+Yeah.. about that.. You'll need to run `couch.prod.sh` first. See [this issue](https://github.com/apache/couchdb-docker/issues/54) to know why.
 
 ## Will you consider adding more databases?
 
