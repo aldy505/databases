@@ -23,10 +23,11 @@ MySQL | root | password | 3306
 Redis | - | - | 6379
 MongoDB | root | password | 27017
 CouchDB | root | password | 5984
+Cassandra | - | - | 9042
 
 ## How about some kind of admin panel?
 
-Sure, I did setup some of that, too. But, I haven't found a good one for CouchDB. Might update it in the future.
+Sure, I did setup some of that, too. But, I haven't found a good one for CouchDB & Cassandra. Might update it in the future.
 
 Service | Database | Port
 --- | --- | --- 
