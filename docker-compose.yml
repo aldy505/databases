@@ -21,7 +21,7 @@ services:
     cap_add:
       - SYS_NICE
   redis:
-    image: redis:6.2.3-alpine
+    image: redis:6.2.4-alpine
     restart: always
     ports: 
       - 6379:6379
@@ -64,7 +64,7 @@ services:
     volumes:
       - "./volume/cassandra/:/var/lib/cassandra"
   mongo-express:
-    image: mongo-express:latest
+    image: mongo-express:1.0.0-alpha.4
     restart: always
     ports: 
       - 2083:8081
@@ -84,7 +84,7 @@ services:
     depends_on:
       - redis
   adminer:
-    image: adminer:latest
+    image: adminer:4.8.1-standalone
     restart: always
     ports: 
       - 2086:8081
