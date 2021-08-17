@@ -29,7 +29,7 @@ services:
       - ./volume/redis/etc:/usr/local/etc/redis
       - ./volume/redis/data:/data
   mongo:
-    image: mongo:4.4.8-bionic
+    image: mongo:4.4.8-focal
     restart: always
     ports: 
       - 27017:27017
