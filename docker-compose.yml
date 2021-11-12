@@ -21,7 +21,7 @@ services:
     cap_add:
       - SYS_NICE
   redis:
-    image: redis:6.2.5-alpine
+    image: redis:6.2.6-alpine
     restart: always
     ports: 
       - 6379:6379
@@ -63,6 +63,16 @@ services:
       - 9160:9160
     volumes:
       - "./volume/cassandra/:/var/lib/cassandra"
+  elasticsearch:
+    image: elasticsearch:7.14.2
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - "./volume/elasticsearch/:/usr/share/elasticsearch/data"
   mongo-express:
     image: mongo-express:1.0.0-alpha.4
     restart: always

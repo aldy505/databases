@@ -16,24 +16,25 @@ Sure. That's why it's a public repository.
 
 Glad you asked. I'm too lazy to set up different user-password combination, so here it is.
 
-Database | User | Password | Port
---- | --- | --- | ---
-PostgreSQL | postgres | password | 5432
-MySQL | root | password | 3306
-Redis | - | - | 6379
-MongoDB | root | password | 27017
-CouchDB | root | password | 5984
-Cassandra | - | - | 9042
+Database      | User     | Password | Port
+------------- | -------- | -------- | ---
+PostgreSQL    | postgres | password | 5432
+MySQL         | root     | password | 3306
+Redis         | -        | -        | 6379
+MongoDB       | root     | password | 27017
+CouchDB       | root     | password | 5984
+Cassandra     | -        | -        | 9042
+Elasticsearch | -        | -        | 9200
 
 ## How about some kind of admin panel?
 
 Sure, I did setup some of that, too. But, I haven't found a good one for CouchDB & Cassandra. Might update it in the future.
 
-Service | Database | Port
---- | --- | --- 
-Adminer | MySQL, PostgreSQL | 2086
-Redis Commander | Redis | 2084
-Mongo Express | MongoDB | 2083
+Service         | Database          | Port
+--------------- | ----------------- | --- 
+Adminer         | MySQL, PostgreSQL | 2086
+Redis Commander | Redis             | 2084
+Mongo Express   | MongoDB           | 2083
 
 ## Can I access them through my localhost?
 
