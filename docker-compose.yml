@@ -2,9 +2,9 @@ services:
   postgres:
     image: postgres:13.4-alpine
     restart: always
-    ports: 
+    ports:
       - 5432:5432
-    environment: 
+    environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
@@ -12,9 +12,9 @@ services:
   mysql:
     image: mysql:8.0.26
     restart: always
-    ports: 
+    ports:
       - 3306:3306
-    environment: 
+    environment:
       MYSQL_ROOT_PASSWORD: password
     volumes:
       - ./volume/mysql:/var/lib/mysql
@@ -23,7 +23,7 @@ services:
   redis:
     image: redis:6.2.6-alpine
     restart: always
-    ports: 
+    ports:
       - 6379:6379
     volumes:
       - ./volume/redis/etc:/usr/local/etc/redis
@@ -31,19 +31,19 @@ services:
   mongo:
     image: mongo:4.4.8-focal
     restart: always
-    ports: 
+    ports:
       - 27017:27017
-    environment: 
+    environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-    volumes: 
+    volumes:
       - ./volume/mongo:/data/db
   couch:
     image: couchdb:3.1.1
     restart: always
-    ports: 
+    ports:
       - 5984:5984
-    environment: 
+    environment:
       COUCHDB_USER: root
       COUCHDB_PASSWORD: password
       # I found these secret and flags on some Github repo, so I thought I'd use it and it worked.
@@ -73,14 +73,26 @@ services:
       - discovery.type=single-node
     volumes:
       - "./volume/elasticsearch/:/usr/share/elasticsearch/data"
+  influxdb:
+    image: influxdb:2.1.1-alpine
+    restart: always
+    ports:
+      - 8086:8086
+    environment:
+      DOCKER_INFLUXDB_INIT_USERNAME: root
+      DOCKER_INFLUXDB_INIT_PASSWORD: password
+      DOCKER_INFLUXDB_INIT_ORG: root
+      DOCKER_INFLUXDB_INIT_BUCKET: public
+    volumes:
+      - "./volume/influxdb/:/var/lib/influxdb"
   mongo-express:
     image: mongo-express:1.0.0-alpha.4
     restart: always
-    ports: 
+    ports:
       - 2083:8081
     depends_on:
       - mongo
-    environment: 
+    environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: password
   redis-commander:
@@ -96,7 +108,7 @@ services:
   adminer:
     image: adminer:4.8.1-standalone
     restart: always
-    ports: 
+    ports:
       - 2086:8081
     depends_on:
       - mysql
