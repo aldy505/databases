@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:13.4-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - 5432:5432
     environment:
@@ -11,7 +11,7 @@ services:
       - ./volume/postgres:/var/lib/postgresql/data
   mysql:
     image: mysql:8.0.26
-    restart: always
+    restart: unless-stopped
     ports:
       - 3306:3306
     environment:
@@ -22,7 +22,7 @@ services:
       - SYS_NICE
   redis:
     image: redis:6.2.6-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - 6379:6379
     volumes:
@@ -30,7 +30,7 @@ services:
       - ./volume/redis/data:/data
   mongo:
     image: mongo:4.4.8-focal
-    restart: always
+    restart: unless-stopped
     ports:
       - 27017:27017
     environment:
@@ -40,7 +40,7 @@ services:
       - ./volume/mongo:/data/db
   couch:
     image: couchdb:3.1.1
-    restart: always
+    restart: unless-stopped
     ports:
       - 5984:5984
     environment:
@@ -54,7 +54,7 @@ services:
       - "./volume/couch/cfg:/opt/couchdb/etc/local.d"
   cassandra:
     image: cassandra:3.11.10
-    restart: always
+    restart: unless-stopped
     ports:
       - 7000:7000
       - 7001:7001
@@ -65,7 +65,7 @@ services:
       - "./volume/cassandra/:/var/lib/cassandra"
   elasticsearch:
     image: elasticsearch:7.14.2
-    restart: always
+    restart: unless-stopped
     ports:
       - 9200:9200
       - 9300:9300
@@ -75,7 +75,7 @@ services:
       - "./volume/elasticsearch/:/usr/share/elasticsearch/data"
   influxdb:
     image: influxdb:2.1.1-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - 8086:8086
     environment:
@@ -83,11 +83,13 @@ services:
       DOCKER_INFLUXDB_INIT_PASSWORD: password
       DOCKER_INFLUXDB_INIT_ORG: root
       DOCKER_INFLUXDB_INIT_BUCKET: public
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: tQXMrSibyzgpothTPkYWArELdcXiPwQq
     volumes:
       - "./volume/influxdb/:/var/lib/influxdb"
   mongo-express:
     image: mongo-express:1.0.0-alpha.4
-    restart: always
+    restart: unless-stopped
     ports:
       - 2083:8081
     depends_on:
@@ -97,7 +99,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: password
   redis-commander:
     image: rediscommander/redis-commander:latest
-    restart: always
+    restart: unless-stopped
     environment:
       REDIS_PORT: 6379
       REDIS_HOST: redis
@@ -107,7 +109,7 @@ services:
       - redis
   adminer:
     image: adminer:4.8.1-standalone
-    restart: always
+    restart: unless-stopped
     ports:
       - 2086:8081
     depends_on:
