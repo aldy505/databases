@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:13.4-alpine
+    image: postgres:14.1-alpine
     restart: unless-stopped
     ports:
       - 5432:5432
@@ -10,7 +10,7 @@ services:
     volumes:
       - ./volume/postgres:/var/lib/postgresql/data
   mysql:
-    image: mysql:8.0.26
+    image: mysql:8.0.27
     restart: unless-stopped
     ports:
       - 3306:3306
@@ -29,7 +29,7 @@ services:
       - ./volume/redis/etc:/usr/local/etc/redis
       - ./volume/redis/data:/data
   mongo:
-    image: mongo:4.4.8-focal
+    image: mongo:5.0.5-focal
     restart: unless-stopped
     ports:
       - 27017:27017
@@ -39,7 +39,7 @@ services:
     volumes:
       - ./volume/mongo:/data/db
   couch:
-    image: couchdb:3.1.1
+    image: couchdb:3.2.0
     restart: unless-stopped
     ports:
       - 5984:5984
@@ -53,7 +53,7 @@ services:
       - "./volume/couch/data:/opt/couchdb/data"
       - "./volume/couch/cfg:/opt/couchdb/etc/local.d"
   cassandra:
-    image: cassandra:3.11.10
+    image: cassandra:4.0.1
     restart: unless-stopped
     ports:
       - 7000:7000
